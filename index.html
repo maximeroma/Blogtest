@@ -3,8 +3,11 @@
 <head>
 	<title>Admin Blog</title>
 	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<script src="node_modules/jquery/dist/jquery.min.js"></script>
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="style.css" />
 	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>	
 	<script src="js/app.js"></script>
 
@@ -14,13 +17,13 @@
  		<div class="container-fluid">
  			<div class="navbar-header">
  				<ul class="nav navbar-nav">
- 					<li><a href="#">Actualité</a></li>
+ 					<li><a id="newsLink" href="main.html">Actualité</a></li>
  				</ul>
  			</div>
  		</div>
  	</nav>
 
-	<form>
+
 		<div class="form-group">
 			<label for="inputBlog">Input</label>
 			<input type="text" class="form-control" id="inputBlog" />			
@@ -29,8 +32,9 @@
 			<label for="texteareaBlog">Textearea</label>
 			<textarea type="text" class="form-control" id="texteareaBlog"></textarea>
 		</div>
-		<button type="submit" class="btn btn-success">Submit</button>
-	</form>
+		<input type="button" class="btn btn-success" id="indexSubmit" value="Submit" />
+		<button id="indexDeleteButton" class="btn btn-alert">Delete</button>
+
 
 </body>
 </html>
