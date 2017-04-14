@@ -1,7 +1,7 @@
 $(document).ready(function()
 {
 	var objet = {};
-				
+	var array = [];				
 	var afficherBlog;
 
 	$('#indexSubmit').on('click', function()
@@ -22,6 +22,7 @@ $(document).ready(function()
 			"article" : article,
 			"date" :  now	
 		};
+	
 		$("#inputBlog").val("");
 		$("textarea").val("");
 		
@@ -64,11 +65,12 @@ $(document).ready(function()
 		{
 			
 			news = JSON.parse(data);
+			array.push(news);
 			
 			for  (var i = 0; i < news.length; i++)
 			{
-			$('#mainListe').append('<li><a href="#">' + news[i].title + ' ' + '(' + news[i].date + ')</a></li>');
-			$('#mainParagraphe').append('<div class="row"><p>' + news[i].article + '</p></div>');
+				$('#mainListe').append('<li><a href="#">' + news[i].title + ' ' + '(' + news[i].date + ')</a></li>');
+				$('#mainParagraphe').append('<div class="row"><p>' + news[i].article + '</p></div>');
 			}
 		},
 		error : function(err)
