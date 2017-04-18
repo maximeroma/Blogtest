@@ -1,6 +1,10 @@
 $(document).ready(function()
 {
-	
+	var converter = new showdown.Converter();
+    //text      = '#hello, markdown!',
+    //html      = converter.makeHtml(text);
+
+    //console.log(html);
 
 	var objet = {};
 	var array = [];				
@@ -109,21 +113,24 @@ $(document).ready(function()
 			console.log(data);
 			alert('Error 500');
 		});
-		
-
-		
-
 
 	});
-	
 
-	
-		
-	
+	var markdownToHtml = function()
+	{
+		$('#converterButton').on('click', function()
+		{
+			var text = $('#texteareaBlogM').val();
+			var html = converter.makeHtml(text);
+			$('#texteareaHTML').val(html);
 
-		
+		});
+	};
+	markdownToHtml();
 
 
+    $('.tap-target').tapTarget('open');
+  	$('.tap-target').tapTarget('close');
 
 	
 });

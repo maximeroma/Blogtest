@@ -6,9 +6,19 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<script src="node_modules/jquery/dist/jquery.min.js"></script>
+	
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
 	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>	
+	<script src="node_modules/showdown/dist/showdown.min.js"></script>
+	<script src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+	<link rel="stylesheet" href="style.css" />
 	<script src="js/app.js"></script>
 
 </head>
@@ -30,12 +40,13 @@
 		</div>
 		<div class="form-group">
 			<label for="texteareaBlogM">Textearea_Markdown</label>
-			<textarea type="text" class="form-control" id="texteareaBlogM"></textarea>
+			<textarea type="text" class="form-control materialize-textarea" id="texteareaBlogM"></textarea>
 			<label for="texteareaBlogM">Textearea_HTML</label>
-			<textarea type="text" class="form-control" id="texteareaHTML" ></textarea>
+			<textarea type="text" class="form-control materialize-textarea" id="texteareaHTML" ></textarea>
 		</div>
 		<input type="button" class="btn btn-success" id="indexSubmit" value="Submit" />
-		<input type="button" id="indexDeleteButton" class="btn btn-alert" value="Delete" />		
+		<input type="button" id="indexDeleteButton" class="btn btn-alert" value="Delete" />	
+		<input type="button" id="converterButton" class="btn btn-info" value="Parse" />	
 	</form>
 
 	<table class="table table-bordered">
