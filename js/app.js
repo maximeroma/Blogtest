@@ -1,5 +1,7 @@
 $(document).ready(function()
 {
+	
+
 	var objet = {};
 	var array = [];				
 	var afficherBlog;
@@ -8,12 +10,14 @@ $(document).ready(function()
 	{
 		var title = $("#inputBlog").val();
 		var article = $("textarea").val(); 
+		
 		var today = new Date(); 
 		var dd = today.getDate(); 
 		var mm = today.getMonth()+1;  //January is 0! 
 		var yyyy = today.getFullYear();
 		var now =  dd+ "/" + "0" +mm+ "/" +yyyy
-		console.log(now);
+		console.log(now);		
+		
 		
 
 		objet = 
@@ -82,6 +86,8 @@ $(document).ready(function()
 
 	$('#indexDeleteButton').on('click', function()
 	{
+		
+		
 		$('#mainListe').children().remove();
 		$.ajax(
 		{
@@ -103,7 +109,11 @@ $(document).ready(function()
 			console.log(data);
 			alert('Error 500');
 		});
-			
+		
+
+		
+
+
 	});
 	
 
