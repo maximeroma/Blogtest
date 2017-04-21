@@ -5,65 +5,69 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-	<script src="node_modules/jquery/dist/jquery.min.js"></script>
-	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize-css" />
+	
+	<script src="node_modules/jquery/dist/jquery.min.js">
+		
+	</script>
+	<!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" /> -->
+	<!-- <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize-css" /> -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>	
-	<script src="node_modules/showdown/dist/showdown.min.js"></script>
-	<script src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+	<!--<script src="node_modules/bootstrap/dist/js/bootstrap.min.js">
+		
+	</script> -->	
+	<script src="node_modules/showdown/dist/showdown.min.js">
+		
+	</script>
+	<!--<script src="node_modules/materialize-css/dist/js/materialize.min.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js">
+		
+	</script>
 	
-	<script src="js/app.js"></script>
+	<script src="js/index.js">
+		
+	</script>
 	<link rel="stylesheet" href="style.css" />
 
 </head>
 <body id="mainBody">
-	
-	<div class="nav nav-navbar" >
-		<button id="menuButton" class="btn btn-default pull-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-			<a href="index.html"><span class="glyphicon glyphicon-align-justify" /></a>
-		</button>		
-	</div>
-	<div>
-		<a class="btn btn-floating pulse"><i class="material-icons">menu</i></a>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
-				<ul id="mainListe" class="nav navbar-nav side-nav"></ul>		
-		    </div>		
-		    <div id="mainParagraphe" class="col-sm-9 col-md-8">	    	
-		    </div>			
-		</div>
-	</div>
 
-<div class="fixed-action-btn horizontal click-to-toggle">
-    <a class="btn-floating btn-large red">
-     	<i class="material-icons">menu</i>
-    </a>
-    <ul>
-      	<li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-      	<li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-      	<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-      	<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-    </ul>
-</div>
+	<nav class="top-nav">
+	    <div class="container">
+	    	<div class="nav-wrapper">
+	    	 	<a href="main.html" class="center brand-logo page-title"><i id="blog" class="material-icons">pageview</i>MainPage</a>
+	    	 <ul id="mainListe" class="side-nav fixed">				
+			</ul>		  
+		    <a href="#" data-activates="mainListe" class="button-collapse top-nav"><i class="material-icons">menu</i></a>
+	    	</div>
+	    </div>
+    </nav>
 
- <!-- Element Showed -->
-  <a id="menu" class="waves-effect waves-light btn btn-floating" ><i class="material-icons">menu</i></a>
-
-  <!-- Tap Target Structure -->
-  <div class="tap-target" data-activates="menu">
-    <div class="tap-target-content">
-      <h5>Title</h5>
-      <p>A bunch of text</p>
+    <div class="container">
+ 		<div class="row">
+ 			<div class="col s9 offset-s3">
+ 				 <h1 class="flow-text">Bienvenu sur mon blog!</h1>
+ 			</div>
+ 		</div>
     </div>
-  </div>
-
+	
+	<div class="fixed-action-btn vertical">
+    	<a class="btn-floating btn-large blue">
+      		<i class="large material-icons">dashboard</i>
+    	</a>
+    	<ul>
+      		<li><a href="index.html" class="btn-floating red"><i class="material-icons">settings</i></a></li>  
+      		<li><a id="blog" class="btn-floating green"><i class="material-icons">publish</i></a></li>  
+    	</ul>
+  	</div>	
+	
+			
+		<div class="row">
+		    <div id="mainParagraphe" class="col-sm-9 col-md-8"></div>			
+		</div>
 
 </body>
+
 </html>

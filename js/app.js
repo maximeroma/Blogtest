@@ -1,92 +1,128 @@
 $(document).ready(function()
 {
-	var converter = new showdown.Converter();
-    //text      = '#hello, markdown!',
-    //html      = converter.makeHtml(text);
-
-    //console.log(html);
+	
+	var converter = new showdown.Converter();   
 
 	var objet = {};
-	var array = [];				
-	var afficherBlog;
+	var array;			
+	var news;	
+	var _id;
+	var title;
+	var article;
 
-	$('#indexSubmit').on('click', function()
-	{
-		var title = $("#inputBlog").val();
-		var article = $("textarea").val(); 
-		
-		var today = new Date(); 
-		var dd = today.getDate(); 
-		var mm = today.getMonth()+1;  //January is 0! 
-		var yyyy = today.getFullYear();
-		var now =  dd+ "/" + "0" +mm+ "/" +yyyy
-		console.log(now);		
-		
-		
+	// afficher les articles que l'on peut supprimer
 
-		objet = 
-		{ 	
-		 	"title" : title,
-			"article" : article,
-			"date" :  now	
-		};
+	var affichArticleIndex = function(a){
+		$('#deleteList').children().remove();
+
+		for  (var i=0; i<a.length; i++)
+		{
+			$('#deleteList').append('<li></li>');
+			$('li').last().append('<a href="#" data-id="'+ a[i]._id +'">'+ a[i].title +'</a>');
+		}
+		
+	};
+
 	
-		$("#inputBlog").val("");
-		$("textarea").val("");
-		
+		// null si on est pas en mode edit
+
+		$('#indexSubmit').on('click', function()
+		{
+			title = $("#inputBlog").val();
+			article = $("#textareaBlogM").val(); 
+
+			// pour récupérer la date
+			
+			var today = new Date(); 
+			var dd = today.getDate(); 
+			var mm = today.getMonth()+1;  //January is 0! 
+			var yyyy = today.getFullYear();
+			var now =  dd+ "/" + "0" +mm+ "/" +yyyy;	
+			
+			if (title != "" && article != "")    // envoie sur le serveur seulement si les champs textes sont remplies
+			{			
+				objet = 
+				{ 	
+				 	"title" : title,
+					"article" : article,
+					"date" :  now	
+				};
+			
+				
+				
+				// requete pour envoyer sur le serveur
+
+				$.ajax(
+				{
+					url : 'http://192.168.1.50/json-db',
+					data: 
+					{
+						task: 'set',
+						key: 'romaBlog',
+						value: JSON.stringify(objet)
+					}
+				})
+				.done(function(data)
+				{					
+					Materialize.toast('Objet envoyé!', 1500)
+					$("#inputBlog").val("");
+					$("#textareaBlogM").val("");
+				})
+				.fail(function(data)
+				{				
+					Materialize.toast('Erreur 500', 1500);
+				});
+
+			}
+			
+		});		
+	
+	
+				
+
+
+	$("body").on('click', function()
+	{
+		// requete pour envoyer sur la page d'accueil
+
+
 		$.ajax(
 		{
 			url : 'http://192.168.1.50/json-db',
-			data: 
+			data : 
 			{
-				task: 'set',
-				key: 'romaBlog',
-				value: JSON.stringify(objet)
+				task : 'get',
+				key : 'romaBlog',
+			},
+			success : function(data)
+			{				
+				news = JSON.parse(data);
+				console.log(news);
+				affichArticleIndex(news);
+			},
+			error : function(err)
+			{
+				console.log(err);
 			}
-		})
-		.done(function()
-		{
-			console.log('Objet bien envoyé');
-		})
-		.fail(function(data)
-		{
-			console.log(data);
-			alert('Error 500')
-		});
+		});		
+
 	});
-	
 
-	var mainTitle;
-	var mainArticle;
-	var news = {};
 
 	
-	$.ajax(
-	{
-		url : 'http://192.168.1.50/json-db',
-		data : 
-		{
-			task : 'get',
-			key : 'romaBlog',
-		},
-		success : function(data)
-		{
-			
-			news = JSON.parse(data);
-			array.push(news);
-			
-			for  (var i = 0; i < news.length; i++)
-			{
-				$('#mainListe').append('<li><a href="#">' + news[i].title + ' ' + '(' + news[i].date + ')</a></li>');
-				$('#mainParagraphe').append('<div class="row"><p>' + news[i].article + '</p></div>');
-			}
-		},
-		error : function(err)
-		{
-			console.log(err);
-			afficherBlog = false;
-		}
-	});		
+
+
+
+
+
+
+
+
+
+
+
+
+	// pour tout supprimer
 
 	$('#indexDeleteButton').on('click', function()
 	{
@@ -107,30 +143,129 @@ $(document).ready(function()
 			console.log(data);
 			console.log('Objet supprimé');
 
-		})
-		.fail(function(data)
-		{
-			console.log(data);
-			alert('Error 500');
 		});
-
 	});
 
-	var markdownToHtml = function()
-	{
-		$('#converterButton').on('click', function()
-		{
-			var text = $('#texteareaBlogM').val();
-			var html = converter.makeHtml(text);
-			$('#texteareaHTML').val(html);
 
-		});
-	};
-	markdownToHtml();
-
-
-    $('.tap-target').tapTarget('open');
-  	$('.tap-target').tapTarget('close');
 
 	
+
+
+	
+	//fonction pour convertir le markdown en HTML
+
+	var markdownToHtml = function()
+	{		
+		var text = $('#textareaBlogM').val();
+		var html = converter.makeHtml(text);
+		$('#textareaHTML').html(html);
+	};
+		
+
+	
+
+	$('#textareaBlogM').on('keyup', markdownToHtml);
+		
+
+
+  
+	$('#deleteList').delegate('li a', 'click', function()
+	{
+		var _id = $(this).data('id');
+		$('#modifSubmit').attr('data-id', _id);
+		$('#deleteTargetButton').attr('data-id', _id);
+
+		for  (var i = 0; i < news.length; i++) 
+		{
+			if  (news[i]._id = _id)
+			{
+				$('#inputModif').val(news[i].title);
+				$('#textareaModif').val(news[i].article);
+			}
+		}
+	});
+  	
+
+
+
+
+  	var suppressionArticle = function()
+  	{
+	  	$('#deleteTargetButton').on('click', function()
+	  	{
+	  		_id = $('#deleteTargetButton').data('id');
+	  		console.log(_id);
+	  		for  (var i = 0; i < news.length; i++)
+	  		{
+	  			if  (news[i]._id === _id)		// si je clique sur un titre de la liste il est supprimé du serveur
+	  			{	  				
+	  				$.ajax(
+	  				{
+	  					url:'http://192.168.1.50/json-db',
+						data: 
+						{
+							task: 'delete',
+							_id: _id,
+						}
+	  				});	  						
+	  			}	  			
+		  		
+		  	};
+
+		  	console.log(news);	
+		});
+	}
+
+  suppressionArticle();
+
+  
+
+
+	var modificationArticle = function()
+	{
+		$('#modifSubmit').on('click', function()
+	  	{
+	  		_id = $('#modifSubmit').data('id')
+	  		console.log(_id)
+	  		for  (var i = 0; i < news.length; i++)
+	  		{
+	  			if  (news[i]._id === _id)		// si je clique sur un titre de la liste il est envoie le contenu dans le textarea
+	  			{
+	  				title = $("#inputModif").val();
+					article = $("#textareaModif").val(); 
+					
+					if (title != "" && article != "")    // envoie sur le serveur seulement si les champs textes sont remplies
+					{			
+						objet = 
+						{ 	
+						 	"title": title,
+							"article" : article,
+						};
+
+						$.ajax(
+						{
+							url:'http://192.168.1.50/json-db',
+							data: 
+							{
+								task: 'update',
+								_id:  _id,
+								value: JSON.stringify(objet),
+							}
+						});
+					}
+	  			}
+	  		}
+	  	});		
+	}
+
+	modificationArticle();
+
+
+
+
+
+	
+
+
+
 });
